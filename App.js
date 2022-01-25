@@ -1,9 +1,9 @@
 import * as React from 'react';
-import ListPhoto from './src/ListPhoto';
+import Routes from './src/navigation/Routes';
 
 const App = () => {
   return (
-    <ListPhoto />
+    <Routes />
   );
 };
 
