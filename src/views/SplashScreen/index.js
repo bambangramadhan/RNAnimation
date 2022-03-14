@@ -9,7 +9,7 @@ import VIcon from "../../components/VIcon";
 
 const CIRCLE_SIZE = 80;
 
-const Circle = ({ onPress, animatedValue }) => {
+const Circle = ({ onPress, animatedValue, disabled }) => {
     const inputRange = [0, 0.001, 0.5, 0.501, 1];
     const containerBg = animatedValue.interpolate({
         inputRange,
@@ -50,13 +50,13 @@ const Circle = ({ onPress, animatedValue }) => {
                         {
                             translateX: animatedValue.interpolate({
                                 inputRange: [0, 0.5, 1],
-                                outputRange: [0, 40, 0]
+                                outputRange: [0, 30, 0]
                             })
                         }
                     ],
 
                 }]}>
-                <TouchableOpacity onPress={onPress}>
+                <TouchableOpacity onPress={onPress} disabled={disabled}>
                     <View style={[styles.circle, styles.circleButton]}>
                         <VIcon
                             type="AntDesign"
@@ -81,14 +81,19 @@ const SplashScreen = () => {
         });
 
     const [index, setIndex] = useState(0);
+    const [disabled, setDisabled] = useState(false);
     const onPress = () => {
-        setIndex(index === 1 ? 0 : 1);
+        setDisabled(true);
+        setTimeout(() => {
+            setIndex(index === 1 ? 0 : 1);
+            setDisabled(false);
+        }, 3000);
         animation(index === 1 ? 0 : 1).start();
     };
 
     return (
         <View style={styles.container}>
-            <Circle onPress={onPress} animatedValue={animatedValue} />
+            <Circle onPress={onPress} animatedValue={animatedValue} disabled={disabled} />
         </View>
     )
 };
